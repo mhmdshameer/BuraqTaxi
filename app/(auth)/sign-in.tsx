@@ -50,8 +50,9 @@ const SignIn = () => {
 
           <Link
             href="/sign-up"
+            className="text-lg text-center text-general-200 mt-10"
           >
-            <Text className="text-lg text-center text-general-200 mt-10">Don't have an account?</Text>
+            <Text >Don't have an account?</Text>
             <Text className="text-lg text-primary-500">Sign Up</Text>
           </Link>
         </View>
