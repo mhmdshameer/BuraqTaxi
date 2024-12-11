@@ -1,7 +1,7 @@
 import RideCard from "@/components/RideCard";
-import { images } from "@/constants";
+import { icons, images } from "@/constants";
 import { useUser } from "@clerk/clerk-expo";
-import { ActivityIndicator, FlatList, Image, Text, View } from "react-native";
+import { ActivityIndicator, FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const recentRides = [
@@ -115,11 +115,12 @@ export default function Page() {
   const { user } = useUser();
   const loading = true;
 
+  const handlePress = () => {}
+
   return (
     <SafeAreaView className="bg-general-500">
       <FlatList
-        // data={recentRides.slice(0, 5)}
-        data={[]}
+        data={recentRides.slice(0, 5)}
         renderItem={({ item }) => <RideCard ride={item} />}
         className="px-5"
         keyboardShouldPersistTaps="handled"
@@ -137,6 +138,17 @@ export default function Page() {
               <ActivityIndicator size="small" color="#000" className="mt-10" />
             )}
           </View>
+        )}
+        ListHeaderComponent={()=> (
+          <>
+           <View className="flex flex-row items-center justify-center my-5">
+            <Text className="text-2xl capitalize font-JakartaBold">Welcome {user?.firstName || user?.emailAddresses[0].emailAddress.split("@")[0]}</Text>
+            <TouchableOpacity onPress={handlePress} className="justify-center items-center w-10 h-10 rounded-full bgwhite
+            ">
+              <Image source={icons.out} className="w-4 h-4" />
+            </TouchableOpacity>
+           </View>
+          </>
         )}
       />
     </SafeAreaView>
