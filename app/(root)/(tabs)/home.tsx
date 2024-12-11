@@ -1,7 +1,15 @@
+import GoogleTextInput from "@/components/GoogleTextInput";
 import RideCard from "@/components/RideCard";
 import { icons, images } from "@/constants";
 import { useUser } from "@clerk/clerk-expo";
-import { ActivityIndicator, FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const recentRides = [
@@ -115,7 +123,8 @@ export default function Page() {
   const { user } = useUser();
   const loading = true;
 
-  const handlePress = () => {}
+  const handlePress = () => {};
+  const handleDestinationPress = () => {};
 
   return (
     <SafeAreaView className="bg-general-500">
@@ -131,23 +140,40 @@ export default function Page() {
           <View className="flex flex-col items-center justify-center">
             {!loading ? (
               <>
-               <Image source={images.noResult} alt="no recent rides found" className="w-40 h-40" resizeMode="contain"/>
-               <Text className="text-sm">No recent rides found</Text>
+                <Image
+                  source={images.noResult}
+                  alt="no recent rides found"
+                  className="w-40 h-40"
+                  resizeMode="contain"
+                />
+                <Text className="text-sm">No recent rides found</Text>
               </>
-            ):(
+            ) : (
               <ActivityIndicator size="small" color="#000" className="mt-10" />
             )}
           </View>
         )}
-        ListHeaderComponent={()=> (
+        ListHeaderComponent={() => (
           <>
-           <View className="flex flex-row items-center justify-center my-5">
-            <Text className="text-2xl capitalize font-JakartaBold">Welcome {user?.firstName || user?.emailAddresses[0].emailAddress.split("@")[0]}</Text>
-            <TouchableOpacity onPress={handlePress} className="justify-center items-center w-10 h-10 rounded-full bgwhite
-            ">
-              <Image source={icons.out} className="w-4 h-4" />
-            </TouchableOpacity>
-           </View>
+            <View className="flex flex-row items-center justify-between my-5">
+              <Text className="text-2xl capitalize font-JakartaBold">
+                Welcome{" "}
+                {user?.firstName ||
+                  user?.emailAddresses[0].emailAddress.split("@")[0]}
+              </Text>
+              <TouchableOpacity
+                onPress={handlePress}
+                className="justify-center items-center w-10 h-10 rounded-full bgwhite
+            "
+              >
+                <Image source={icons.out} className="w-4 h-4" />
+              </TouchableOpacity>
+            </View>
+            <GoogleTextInput
+              icon={icons.search}
+              containerStyle="bg-white shadow-md shadow-neutral-300"
+              handlePress={handleDestinationPress}
+            />
           </>
         )}
       />
